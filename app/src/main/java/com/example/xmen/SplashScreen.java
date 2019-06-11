@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Window;
 
 public class SplashScreen extends AppCompatActivity implements Runnable {
     private final int DELAY = 3000;
@@ -19,7 +18,7 @@ public class SplashScreen extends AppCompatActivity implements Runnable {
 
     @Override
     public void run() {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 }

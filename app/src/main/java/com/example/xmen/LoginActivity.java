@@ -1,5 +1,6 @@
 package com.example.xmen;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -26,7 +28,7 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
     private EditText login;
     private EditText senha;
     private Button mButton;
-    private String url = "http://192.168.42.253:8080/Server/testLogin";
+    private String url = "http://192.168.42.253:8080/Server/webresources/ws";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +51,16 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
         final String user = login.getText().toString();
         final String password = senha.getText().toString();
 
+        Usuario u = new Usuario();
+        u.setLogin(user);
+        u.setSenha(password);
+        objeto pra json
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
-                        //parseData(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -73,6 +79,11 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+    }
+
+    public void parseData(String response) {
+        Intent it = new Intent(this, Dashboard.class);
+        startActivity(it);
     }
 
     @Override
